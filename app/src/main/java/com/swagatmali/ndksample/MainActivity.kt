@@ -10,10 +10,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.swagatmali.ndksample.ui.theme.NDKSampleTheme
 
+
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        init {
+            System.loadLibrary("keys")
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,7 +27,7 @@ class MainActivity : ComponentActivity() {
             NDKSampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = getAPI(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -29,6 +35,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+external fun getAPI(): String
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
